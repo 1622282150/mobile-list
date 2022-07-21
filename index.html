@@ -15,11 +15,12 @@
     <script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
     <script src="https://fastly.jsdelivr.net/npm/vant@3/lib/vant.min.js"></script>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         .item {
             position: relative;
             width: 100%;
@@ -36,7 +37,7 @@
         }
 
         .item_main {
-            max-width:50%;
+            max-width: 50%;
             margin-left: 30px;
         }
 
@@ -44,7 +45,7 @@
             margin: 8px 0 0 0;
             font-size: 12px;
             color: #999;
-            max-width:100%;
+            max-width: 100%;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -58,7 +59,8 @@
             font-size: 12px;
             color: #999;
         }
-        .footer{
+
+        .footer {
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -87,33 +89,33 @@
     const app = Vue.createApp({
         data: function () {
             return {
-                list:[],
-                timer:null,
-                contentlist:['您今天有时间吗','最近还好吗','如果时间有温度那么我希望','今日的风依旧是温暖的','不知道远处的你现在什么样呢','您这周的任务完全没问题','不如就这样了吧','十大宗教啥的','这是一条消息','这是另一则消息','那就着啊养吧'],
+                list: [],
+                timer: null,
+                contentlist: ['您今天有时间吗', '最近还好吗', '如果时间有温度那么我希望', '今日的风依旧是温暖的', '不知道远处的你现在什么样呢', '您这周的任务完全没问题', '不如就这样了吧', '十大宗教啥的', '这是一条消息', '这是另一则消息', '那就着啊养吧'],
             }
         },
         async mounted() {
-         let succ = await this.getlist();
-          this.timer = setInterval(()=>{
-             this.list.forEach(element => {
-                 element.content = this.contentlist[Math.floor(Math.random() * 10 + 1)]
-                 element.num++;
-                 console.log('1')
-             });
-          },1500)
+            let succ = await this.getlist();
+            this.timer = setInterval(() => {
+                this.list.forEach(element => {
+                    element.content = this.contentlist[Math.floor(Math.random() * 10 + 1)]
+                    element.num++;
+                    console.log('1')
+                });
+            }, 1500)
         },
-        beforeDestroy(){
-          clearInterval(this.timer);
-          this.timer=null
+        beforeDestroy() {
+            clearInterval(this.timer);
+            this.timer = null
         },
         methods: {
-            getlist(){
-                $.getJSON('./data.json',(res)=>{
-                   this.list = res.result.news
+            getlist() {
+                $.getJSON('./data.json', (res) => {
+                    this.list = res.result.news
                 })
             }
         },
-        
+
     })
     app.use(vant).use(vant.Lazyload).mount('#app');
 
